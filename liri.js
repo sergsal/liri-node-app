@@ -22,7 +22,7 @@ var searchItem = "";
 for (var i=3; i<nodeArgs.length; i++){
 
   // Build a string for the search term
-	searchItem += "" + nodeArgs[i];
+	searchItem += nodeArgs[i]+" " ;
 };
 console.log(searchItem);
 switch(userCommand) {
@@ -37,13 +37,18 @@ switch(userCommand) {
 });
 								break;
 								case("spotify-this-song"):
-								spotify.search({ type: 'track', query: searchItem }, function(err, data) {
+								spotify.search({ type: 'track', query: searchItem, limit: 1}, function(err, data) {
 												if ( err ) {
 																console.log('Error occurred: ' + err);
 																return;
-												}
- 
-    // Do something with 'data' 
+												} else {
+																for (i=0;i<5;i++) {
+																				console.log("Artist: "+data.tracks.items[i].artists[0].name);
+																				console.log("Song Name: "+data.tracks.items[i].name);
+																				console.log("Album Name: "+data.tracks.items[i].album.name);
+																				console.log("Preview URL: "+data.tracks.items[i].preview_url+"\n");
+																};
+												};
 });
 								break;
 								case("movie-ths"):
